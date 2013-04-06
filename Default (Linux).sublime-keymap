@@ -1,6 +1,6 @@
 [  
     {   
-        "keys": ["ctrl+shift+f"], "command": "filter_using_string"
+        "keys": ["ctrl+shift+f"], "command": "filter"
     },
     {
         "keys": ["ctrl+shift+alt+f"], "command": "filter_using_regular_expression"

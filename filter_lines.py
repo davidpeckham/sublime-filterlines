@@ -1,3 +1,4 @@
+
 import sublime, sublime_plugin, re
 
 def matches(needle, haystack, search_type):
@@ -24,7 +25,7 @@ def filter(view, edit, needle, search_type):
                 view.erase(edit, view.full_line(line))
 
 
-class FilterUsingStringCommand(sublime_plugin.WindowCommand):
+class FilterCommand(sublime_plugin.WindowCommand):
 
     def run(self):
         cb = sublime.get_clipboard()
