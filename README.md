@@ -24,3 +24,10 @@ Keybindings
 - To filter lines that match a regular expression:  "ctrl + option + shift + F"
 
 On Windows and Linux, use alt instead of option.
+
+Bug Reports
+-----------
+Please report bugs:
+
+* https://github.com/davidpeckham/FilterLines/issues
+
