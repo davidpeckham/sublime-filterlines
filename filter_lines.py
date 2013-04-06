@@ -47,7 +47,7 @@ class FilterUsingRegularExpressionCommand(sublime_plugin.WindowCommand):
             self.window.active_view().run_command("filter_lines", { "needle": text, "search_type": "regex" })
 
 
-class FilterLinesÏCommand(sublime_plugin.TextCommand):
+class FilterLinesCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, needle, search_type = "string"):
         filter(self.view, edit, needle, search_type)
