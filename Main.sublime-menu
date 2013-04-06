@@ -1,0 +1,17 @@
+[
+    {
+        "id": "edit",
+        "children":
+        [
+            {
+                "id": "line",
+                "children":
+                [
+                    { "caption": "-" },
+                    { "command": "filter_using_string" },
+                    { "command": "filter_using_regular_expression" }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,25 @@
+
+
+    Filter Lines is now installed
+    -----------------------------
+
+    Now you can filter lines in your file that contain a string
+    or match a regular expression.
+
+    To filter your file for lines that contain a string:
+
+      Edit > Line > Filter...  (ctrl + shift + f)
+
+    To filter your file for lines that match a regular expression:
+
+      Edit > Line > Filter Using Regular Expression...  (ctrl + option + shift + f)
+
+    On Windows and Linux, use the alt key instead of the option key.
+
+
+
+Source and Bugs
+===============
+
+* Code: https://github.com/davidpeckham/FilterLines
+* Bugs, features, questions?: https://github.com/davidpeckham/FilterLines/issues

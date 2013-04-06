@@ -1,0 +1,4 @@
+[
+    { "caption": "Filter Lines in File", "command": "filter_using_string" },
+    { "caption": "Filter Lines in File Using Regular Expression", "command": "filter_using_regular_expression" }
+]
