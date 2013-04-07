@@ -7,7 +7,7 @@
                 "id": "line",
                 "children":
                 [
-                    { "caption": "-" },
+                    { "caption": "-", "id": "filter" },
                     { "command": "filter" },
                     { "command": "filter_using_regular_expression" }
                 ]

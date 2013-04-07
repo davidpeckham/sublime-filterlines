@@ -1,9 +1,12 @@
-Filter Lines for Sublime Text 3
-===============================
-A Sublime Text 3 plugin that filters lines containing a string or matching a regular expression
+# Filter Lines plugin for Sublime Text 3
 
-Installation
-------------
+A Sublime Text 3 plugin that filters lines containing a string or matching a regular expression. Searches are case sensitive (for now) and use the Python regular expression syntax.
+
+* [How to install](#how-to-install)
+* [Available actions](#available-actions)
+* [Bug reports](#bug-reports)
+
+## How to install ##
 
 ### Package Control ###
 Install Will Bond's [Package Control](http://wbond.net/sublime_packages/package_control), and then:
@@ -18,16 +21,11 @@ Then clone this repository:
 
     $ git clone https://github.com/davidpeckham/FilterLines.git
 
-Keybindings
------------
-- To filter lines that contain a string:  "ctrl + shift + F"
-- To filter lines that match a regular expression:  "ctrl + option + shift + F"
+## Available actions ##
 
-On Windows and Linux, use alt instead of option.
+* Filter lines that contain a string: <kbd>Ctrl+Shift+F</kbd>
+* Filter lines that match a regular expression: <kbd>Ctrl+Options+Shift+F</kbd> / <kbd>Ctrl+Alt+Shift+F</kbd>
 
-Bug Reports
------------
-Please report bugs:
+## Feedback ##
 
 * https://github.com/davidpeckham/FilterLines/issues
-
