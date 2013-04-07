@@ -4,7 +4,7 @@ A Sublime Text 3 plugin that filters lines containing a string or matching a reg
 
 * [How to install](#how-to-install)
 * [Available actions](#available-actions)
-* [Bug reports](#bug-reports)
+* [Feedback](#feedback)
 
 ## How to install ##
 
