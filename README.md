@@ -24,7 +24,7 @@ Then clone this repository:
 ## Available actions ##
 
 * Filter lines that contain a string: <kbd>Ctrl+Shift+F</kbd>
-* Filter lines that match a regular expression: <kbd>Ctrl+Options+Shift+F</kbd> / <kbd>Ctrl+Alt+Shift+F</kbd>
+* Filter lines that match a regular expression: <kbd>Ctrl+Option+Shift+F</kbd> / <kbd>Ctrl+Alt+Shift+F</kbd>
 
 ## Feedback ##
 
