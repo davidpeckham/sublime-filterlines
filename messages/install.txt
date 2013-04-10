@@ -3,16 +3,18 @@
     Filter Lines is now installed
     -----------------------------
 
-    Now you can filter lines in your file that contain a string
-    or match a regular expression.
+    Now you can filter your file for lines that contain a string
+    or match a regular expression
 
-    To filter your file for lines that contain a string:
+    To filter your file to lines that contain a string or match a regex:
 
-      Edit > Line > Filter...  (ctrl + shift + f)
+      Edit > Line > Filter To Lines With String...  (ctrl + shift + F)
+      Edit > Line > Filter To Lines Matching Regex...  (ctrl + option + shift + F)
 
-    To filter your file for lines that match a regular expression:
+    To fold your file to lines that contain a string or match a regex:
 
-      Edit > Line > Filter Using Regular Expression...  (ctrl + option + shift + f)
+      Edit > Code Folding > Fold To Lines With String...
+      Edit > Code Folding > Fold To Lines Matching Regex...
 
     On Windows and Linux, use the alt key instead of the option key.
 
@@ -22,4 +24,4 @@ Source and Bugs
 ===============
 
 * Code: https://github.com/davidpeckham/FilterLines
-* Bugs, features, questions?: https://github.com/davidpeckham/FilterLines/issues
+* Bugs, features, questions: https://github.com/davidpeckham/FilterLines/issues
