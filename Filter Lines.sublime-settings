@@ -1,6 +1,6 @@
 {
 	// searches are case-sensitive by default
-	"case_sensitive": false,
+	"case_sensitive": true,
 
 	// results replace the current buffer by default
 	"results_in_new_buffer": false
