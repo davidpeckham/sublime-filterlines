@@ -3,6 +3,12 @@ import sublime, sublime_plugin, re
 
 
 def matches(needle, haystack, search_type):
+    settings = sublime.load_settings('Filter Lines.sublime-settings')
+
+    if not settings.get('case_sensitive', True):
+        needle = needle.upper()
+        haystack = haystack.upper()
+
     if search_type == "regex":
         return re.search(needle, haystack)
     else:
