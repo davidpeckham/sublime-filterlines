@@ -8,14 +8,17 @@ def is_st3():
 
 def matches(needle, haystack, search_type):
     settings = sublime.load_settings('Filter Lines.sublime-settings')
-
-    if not settings.get('case_sensitive', True):
-        needle = needle.upper()
-        haystack = haystack.upper()
+    case_sensitive = settings.get('case_sensitive', True)
 
     if search_type == "regex":
-        return re.search(needle, haystack)
+        if not case_sensitive:
+            return re.search(needle, haystack, re.IGNORECASE)
+        else:
+            return re.search(needle, haystack)
     else:
+        if not case_sensitive:
+            needle = needle.upper()
+            haystack = haystack.upper()
         return (needle in haystack)
 
 
@@ -39,9 +42,8 @@ def filter_to_new_buffer(view, edit, needle, search_type):
             if matches(needle, view.substr(line), search_type):
                 if is_st3():
                     results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
-                    # results_view.run_command('insert', { 'characters': view.substr(line) + '\n' })
                 else:
-                    results_view.insert(results_edit, 0, view.substr(line) + '\n')
+                    results_view.insert(results_edit, results_view.size(), view.substr(line) + '\n')
 
     if not is_st3():
         results_view.end_edit(results_edit)
