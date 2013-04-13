@@ -35,7 +35,7 @@ Then clone this repository:
 ## Preferences ##
 
 * `case_sensitive`:  search is case sensitive by default
-* `results_in_new_buffer`:  results overwrite the current buffer by default (coming soon...)
+* `show_results_in_new_buffer`:  set this to false to overwrite the current buffer
 
 ## Feedback ##
 

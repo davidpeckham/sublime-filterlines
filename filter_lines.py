@@ -2,6 +2,10 @@
 import sublime, sublime_plugin, re
 
 
+def is_st3():
+    return sublime.version()[0] == '3'
+
+
 def matches(needle, haystack, search_type):
     settings = sublime.load_settings('Filter Lines.sublime-settings')
 
@@ -18,10 +22,12 @@ def matches(needle, haystack, search_type):
 def filter(view, edit, needle, search_type):
     settings = sublime.load_settings('Filter Lines.sublime-settings')
     results_in_new_window = settings.get('show_results_in_new_buffer', False)
+    # sublime.message_dialog(sublime.version())
     if results_in_new_window:
         results_view = view.window().new_file()
-        results_view.set_name(needle)
-        results_edit = results_view.begin_edit()
+        results_view.set_name('Filter Results')
+        if not is_st3():
+            results_edit = results_view.begin_edit()
 
     # get non-empty selections
     regions = [s for s in view.sel() if not s.empty()]
@@ -36,12 +42,17 @@ def filter(view, edit, needle, search_type):
         for line in reversed(lines):
             matched = matches(needle, view.substr(line), search_type)
             if matched and results_in_new_window:
-                results_view.insert(results_edit, 0, view.substr(line) + '\n')
+                if is_st3():
+                    # results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
+                    results_view.run_command('insert', { 'characters': view.substr(line) + '\n' })
+                else:
+                    results_view.insert(results_edit, 0, view.substr(line) + '\n')
             elif not matched and not results_in_new_window:
                 view.erase(edit, view.full_line(line))
 
     if results_in_new_window:
-        results_view.end_edit(results_edit)
+        if not is_st3():
+            results_view.end_edit(results_edit)
         view.window().focus_view(results_view)
 
 
