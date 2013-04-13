@@ -2,14 +2,53 @@
 import sublime, sublime_plugin, re
 
 
+def is_st3():
+    return sublime.version()[0] == '3'
+
+
 def matches(needle, haystack, search_type):
+    settings = sublime.load_settings('Filter Lines.sublime-settings')
+
+    if not settings.get('case_sensitive', True):
+        needle = needle.upper()
+        haystack = haystack.upper()
+
     if search_type == "regex":
         return re.search(needle, haystack)
     else:
         return (needle in haystack)
 
 
-def filter(view, edit, needle, search_type):
+def filter_to_new_buffer(view, edit, needle, search_type):
+    results_view = view.window().new_file()
+    results_view.set_name('Filter Results')
+    if not is_st3():
+        results_edit = results_view.begin_edit()
+
+    # get non-empty selections
+    regions = [s for s in view.sel() if not s.empty()]
+
+    # no selections? filter the whole document
+    if len(regions) == 0:
+        regions = [ sublime.Region(0, view.size()) ]
+
+    for region in regions:
+        lines = view.split_by_newlines(region)
+
+        for line in lines:
+            if matches(needle, view.substr(line), search_type):
+                if is_st3():
+                    results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
+                    # results_view.run_command('insert', { 'characters': view.substr(line) + '\n' })
+                else:
+                    results_view.insert(results_edit, 0, view.substr(line) + '\n')
+
+    if not is_st3():
+        results_view.end_edit(results_edit)
+    view.window().focus_view(results_view)
+
+
+def filter_in_place(view, edit, needle, search_type):
     # get non-empty selections
     regions = [s for s in view.sel() if not s.empty()]
 
@@ -21,7 +60,6 @@ def filter(view, edit, needle, search_type):
         lines = view.split_by_newlines(region)
 
         for line in reversed(lines):
-
             if not matches(needle, view.substr(line), search_type):
                 view.erase(edit, view.full_line(line))
 
@@ -49,8 +87,13 @@ class FilterToLinesMatchingRegexCommand(sublime_plugin.WindowCommand):
 class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, needle, search_type):
-        filter(self.view, edit, needle, search_type)
-
+        sublime.status_message("Filtering")
+        settings = sublime.load_settings('Filter Lines.sublime-settings')
+        if settings.get('show_results_in_new_buffer', True):
+            filter_to_new_buffer(self.view, edit, needle, search_type)
+        else:
+            filter_in_place(self.view, edit, needle, search_type)
+        sublime.status_message("")
 
 
 def fold_regions(view, folds):

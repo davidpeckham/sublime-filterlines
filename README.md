@@ -32,6 +32,11 @@ Then clone this repository:
 * Edit > Code Folding > Fold To Lines Containing String
 * Edit > Code Folding > Fold To Lines Matching Regex
 
+## Preferences ##
+
+* `case_sensitive`:  search is case sensitive by default
+* `show_results_in_new_buffer`:  set this to false to overwrite the current buffer
+
 ## Feedback ##
 
 * https://github.com/davidpeckham/FilterLines/issues

@@ -1,8 +1,4 @@
 [  
-    {   
-        "keys": ["ctrl+shift+f"], "command": "filter_to_lines_containing_string"
-    },
-    {
-        "keys": ["ctrl+shift+alt+f"], "command": "filter_to_lines_matching_regex"
-    }
+    { "keys": ["ctrl+shift+f"], "command": "filter_to_lines_containing_string" },
+    { "keys": ["ctrl+shift+alt+f"], "command": "filter_to_lines_matching_regex" }
 ] 
