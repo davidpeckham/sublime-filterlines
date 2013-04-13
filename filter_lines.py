@@ -19,16 +19,36 @@ def matches(needle, haystack, search_type):
         return (needle in haystack)
 
 
-def filter(view, edit, needle, search_type):
-    settings = sublime.load_settings('Filter Lines.sublime-settings')
-    results_in_new_window = settings.get('show_results_in_new_buffer', False)
-    # sublime.message_dialog(sublime.version())
-    if results_in_new_window:
-        results_view = view.window().new_file()
-        results_view.set_name('Filter Results')
-        if not is_st3():
-            results_edit = results_view.begin_edit()
+def filter_to_new_buffer(view, edit, needle, search_type):
+    results_view = view.window().new_file()
+    results_view.set_name('Filter Results')
+    if not is_st3():
+        results_edit = results_view.begin_edit()
 
+    # get non-empty selections
+    regions = [s for s in view.sel() if not s.empty()]
+
+    # no selections? filter the whole document
+    if len(regions) == 0:
+        regions = [ sublime.Region(0, view.size()) ]
+
+    for region in regions:
+        lines = view.split_by_newlines(region)
+
+        for line in lines:
+            if matches(needle, view.substr(line), search_type):
+                if is_st3():
+                    results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
+                    # results_view.run_command('insert', { 'characters': view.substr(line) + '\n' })
+                else:
+                    results_view.insert(results_edit, 0, view.substr(line) + '\n')
+
+    if not is_st3():
+        results_view.end_edit(results_edit)
+    view.window().focus_view(results_view)
+
+
+def filter_in_place(view, edit, needle, search_type):
     # get non-empty selections
     regions = [s for s in view.sel() if not s.empty()]
 
@@ -40,20 +60,8 @@ def filter(view, edit, needle, search_type):
         lines = view.split_by_newlines(region)
 
         for line in reversed(lines):
-            matched = matches(needle, view.substr(line), search_type)
-            if matched and results_in_new_window:
-                if is_st3():
-                    # results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
-                    results_view.run_command('insert', { 'characters': view.substr(line) + '\n' })
-                else:
-                    results_view.insert(results_edit, 0, view.substr(line) + '\n')
-            elif not matched and not results_in_new_window:
+            if not matches(needle, view.substr(line), search_type):
                 view.erase(edit, view.full_line(line))
-
-    if results_in_new_window:
-        if not is_st3():
-            results_view.end_edit(results_edit)
-        view.window().focus_view(results_view)
 
 
 class FilterToLinesContainingStringCommand(sublime_plugin.WindowCommand):
@@ -80,9 +88,12 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, needle, search_type):
         sublime.status_message("Filtering")
-        filter(self.view, edit, needle, search_type)
+        settings = sublime.load_settings('Filter Lines.sublime-settings')
+        if settings.get('show_results_in_new_buffer', True):
+            filter_to_new_buffer(self.view, edit, needle, search_type)
+        else:
+            filter_in_place(self.view, edit, needle, search_type)
         sublime.status_message("")
-
 
 
 def fold_regions(view, folds):
@@ -142,4 +153,3 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, needle, search_type):
         fold(self.view, edit, needle, search_type)
-
