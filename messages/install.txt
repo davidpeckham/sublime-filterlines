@@ -8,12 +8,12 @@
 
     To filter your file to lines that contain a string or match a regex:
 
-      Edit > Line > Filter To Lines With String...  (ctrl + shift + F)
+      Edit > Line > Filter To Lines Containing String...  (ctrl + shift + F)
       Edit > Line > Filter To Lines Matching Regex...  (ctrl + option + shift + F)
 
     To fold your file to lines that contain a string or match a regex:
 
-      Edit > Code Folding > Fold To Lines With String...
+      Edit > Code Folding > Fold To Lines Containing String...
       Edit > Code Folding > Fold To Lines Matching Regex...
 
     On Windows and Linux, use the alt key instead of the option key.

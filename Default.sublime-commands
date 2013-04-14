@@ -1,6 +1,6 @@
 [
-    { "caption": "Filter Lines: Containing String", "command": "filter_to_lines_containing_string" },
-    { "caption": "Filter Lines: Matching Regex", "command": "filter_to_lines_matching_regex" },
-    { "caption": "Filter Lines: Fold To Lines Containing String", "command": "fold_to_lines_containing_string" },
-    { "caption": "Filter Lines: Fold To Lines Matching Regex", "command": "fold_to_lines_matching_regex" }
+    { "caption": "Filter Lines: Filter To Lines Containing String", "command": "filter_lines", "args": { "search_type": "string" } },
+    { "caption": "Filter Lines: Filter To Lines Matching Regex", "command": "filter_lines", "args": { "search_type": "regex" } },
+    { "caption": "Filter Lines: Fold To Lines Containing String", "command": "fold_to_filtered_lines", "args": { "search_type": "string" } },
+    { "caption": "Filter Lines: Fold To Lines Matching Regex", "command": "fold_to_filtered_lines", "args": { "search_type": "regex" } }
 ]

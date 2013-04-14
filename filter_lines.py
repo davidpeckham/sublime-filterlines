@@ -2,8 +2,10 @@
 import sublime, sublime_plugin, re
 
 
-def is_st3():
-    return sublime.version()[0] == '3'
+st_version = 2
+
+if sublime.version() == '' or int(sublime.version()) > 3000:
+    st_version = 3
 
 
 def matches(needle, haystack, search_type):
@@ -22,136 +24,130 @@ def matches(needle, haystack, search_type):
         return (needle in haystack)
 
 
-def filter_to_new_buffer(view, edit, needle, search_type):
-    results_view = view.window().new_file()
-    results_view.set_name('Filter Results')
-    if not is_st3():
-        results_edit = results_view.begin_edit()
+class FilterLinesCommand(sublime_plugin.WindowCommand):
 
-    # get non-empty selections
-    regions = [s for s in view.sel() if not s.empty()]
+    def run(self, search_type = 'string'):
+        self.search_type = search_type
+        search_text = sublime.get_clipboard()
 
-    # no selections? filter the whole document
-    if len(regions) == 0:
-        regions = [ sublime.Region(0, view.size()) ]
+        if self.search_type == 'string':
+            prompt = "Filter file for lines containing: "
+        else:
+            prompt = "Filter file for lines matching: "
 
-    for region in regions:
-        lines = view.split_by_newlines(region)
-
-        for line in lines:
-            if matches(needle, view.substr(line), search_type):
-                if is_st3():
-                    results_view.run_command('append', { 'characters': view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
-                else:
-                    results_view.insert(results_edit, results_view.size(), view.substr(line) + '\n')
-
-    if not is_st3():
-        results_view.end_edit(results_edit)
-    view.window().focus_view(results_view)
-
-
-def filter_in_place(view, edit, needle, search_type):
-    # get non-empty selections
-    regions = [s for s in view.sel() if not s.empty()]
-
-    # no selections? filter the whole document
-    if len(regions) == 0:
-        regions = [ sublime.Region(0, view.size()) ]
-
-    for region in reversed(regions):
-        lines = view.split_by_newlines(region)
-
-        for line in reversed(lines):
-            if not matches(needle, view.substr(line), search_type):
-                view.erase(edit, view.full_line(line))
-
-
-class FilterToLinesContainingStringCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        sublime.active_window().show_input_panel("Filter file for lines containing: ", "", self.on_done, None, None)
+        sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 
     def on_done(self, text):
         if self.window.active_view():
-            self.window.active_view().run_command("filter_to_matching_lines", { "needle": text, "search_type": "string" })
-
-
-class FilterToLinesMatchingRegexCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        sublime.active_window().show_input_panel("Filter file for lines matching: ", "", self.on_done, None, None)
-
-    def on_done(self, text):
-        if self.window.active_view():
-            self.window.active_view().run_command("filter_to_matching_lines", { "needle": text, "search_type": "regex" })
+            self.window.active_view().run_command("filter_to_matching_lines", { "needle": text, "search_type": self.search_type })
 
 
 class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
+    def filter_to_new_buffer(self, edit, needle, search_type):
+        results_view = self.view.window().new_file()
+        results_view.set_name('Filter Results')
+        results_view.set_scratch(True)
+        if st_version == 2:
+            results_edit = results_view.begin_edit()
+
+        # get non-empty selections
+        regions = [s for s in self.view.sel() if not s.empty()]
+
+        # no selections? filter the whole document
+        if len(regions) == 0:
+            regions = [ sublime.Region(0, self.view.size()) ]
+
+        for region in regions:
+            lines = self.view.split_by_newlines(region)
+
+            for line in lines:
+                if matches(needle, self.view.substr(line), search_type):
+                    if st_version == 2:
+                        results_view.insert(results_edit, results_view.size(), self.view.substr(line) + '\n')
+                    else:
+                        results_view.run_command('append', { 'characters': self.view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
+
+        if st_version == 2:
+            results_view.end_edit(results_edit)
+        results_view.set_read_only(True)
+
+
+    def filter_in_place(self, edit, needle, search_type):
+        # get non-empty selections
+        regions = [s for s in view.sel() if not s.empty()]
+
+        # no selections? filter the whole document
+        if len(regions) == 0:
+            regions = [ sublime.Region(0, view.size()) ]
+
+        for region in reversed(regions):
+            lines = view.split_by_newlines(region)
+
+            for line in reversed(lines):
+                if not matches(needle, view.substr(line), search_type):
+                    view.erase(edit, view.full_line(line))
+
     def run(self, edit, needle, search_type):
         sublime.status_message("Filtering")
         settings = sublime.load_settings('Filter Lines.sublime-settings')
-        if settings.get('show_results_in_new_buffer', True):
-            filter_to_new_buffer(self.view, edit, needle, search_type)
+        if settings.get('use_new_buffer_for_filter_results', True):
+            self.filter_to_new_buffer(edit, needle, search_type)
         else:
-            filter_in_place(self.view, edit, needle, search_type)
+            self.filter_in_place(edit, needle, search_type)
         sublime.status_message("")
 
 
-def fold_regions(view, folds):
-    region = sublime.Region(folds[0].end(), folds[0].end())
-    for fold in folds:
-        region = region.cover(fold)
-    view.fold(region)
+class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
+    def run(self, search_type = 'string'):
+        self.search_type = search_type
+        search_text = sublime.get_clipboard()
 
-def fold(view, edit, needle, search_type):
-    # get non-empty selections
-    regions = [s for s in view.sel() if not s.empty()]
+        if self.search_type == 'string':
+            prompt = "Fold to lines containing: "
+        else:
+            prompt = "Fold to lines matching: "
 
-    # no selections? filter the whole document
-    if len(regions) == 0:
-        regions = [ sublime.Region(0, view.size()) ]
-
-    for region in reversed(regions):
-        lines = view.split_by_newlines(region)
-        # region_to_fold = sublime.Region(region.end(), region.end())
-        folds = []
-
-        for line in reversed(lines):
-
-            matched = matches(needle, view.substr(line), search_type)
-            if matched:
-                fold_regions(view, folds)
-                folds = []
-            else:
-                folds.append(line)
-
-        if folds:
-            fold_regions(view, folds)
-
-
-class FoldToLinesContainingStringCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        sublime.active_window().show_input_panel("Fold to lines containing: ", "", self.on_done, None, None)
+        sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 
     def on_done(self, text):
         if self.window.active_view():
-            self.window.active_view().run_command("fold_to_matching_lines", { "needle": text, "search_type": "string" })
-
-
-class FoldToLinesMatchingRegexCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        sublime.active_window().show_input_panel("Fold to lines matching: ", "", self.on_done, None, None)
-
-    def on_done(self, text):
-        if self.window.active_view():
-            self.window.active_view().run_command("fold_to_matching_lines", { "needle": text, "search_type": "regex" })
+            self.window.active_view().run_command("fold_to_matching_lines", { "needle": text, "search_type": self.search_type })
 
 
 class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
+    def fold_regions(self, folds):
+        region = sublime.Region(folds[0].end(), folds[0].end())
+        for fold in folds:
+            region = region.cover(fold)
+        self.view.fold(region)
+
+
+    def fold(self, edit, needle, search_type):
+        # get non-empty selections
+        regions = [s for s in self.view.sel() if not s.empty()]
+
+        # no selections? filter the whole document
+        if len(regions) == 0:
+            regions = [ sublime.Region(0, self.view.size()) ]
+
+        for region in reversed(regions):
+            lines = self.view.split_by_newlines(region)
+            folds = []
+
+            for line in reversed(lines):
+
+                matched = matches(needle, self.view.substr(line), search_type)
+                if matched and folds:
+                    self.fold_regions(folds)
+                    folds = []
+                else:
+                    folds.append(line)
+
+            if folds:
+                self.fold_regions(folds)
+
     def run(self, edit, needle, search_type):
-        fold(self.view, edit, needle, search_type)
+        self.fold(edit, needle, search_type)

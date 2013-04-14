@@ -1,7 +1,8 @@
 {
-	// searches are case-sensitive by default
+	// If true, searches are case-sensitive
 	"case_sensitive": true,
 
-	// results replace the current buffer by default
-	"show_results_in_new_buffer": true
+	// If true, filtered results will open in a new buffer. If false,
+	// results will overwrite the current buffer
+	"use_new_buffer_for_filter_results": true
 }

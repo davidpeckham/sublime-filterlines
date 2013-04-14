@@ -1,6 +1,6 @@
 # Filter Lines plugin for Sublime Text
 
-A Sublime Text plugin that filters lines containing a string or matching a regular expression. Searches are case sensitive (for now) and use the Python regular expression syntax.
+A Sublime Text plugin that filters lines containing a string or matching a regular expression. Searches are case sensitive by default and use the Python regular expression syntax.
 
 Works with Sublime Text 2 and Sublime Text 3.
 
@@ -35,7 +35,7 @@ Then clone this repository:
 ## Preferences ##
 
 * `case_sensitive`:  search is case sensitive by default
-* `show_results_in_new_buffer`:  set this to false to overwrite the current buffer
+* `use_new_buffer_for_filter_results`:  set this to false to overwrite the current buffer
 
 ## Feedback ##
 
