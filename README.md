@@ -40,3 +40,6 @@ Then clone this repository:
 ## Feedback ##
 
 * https://github.com/davidpeckham/FilterLines/issues
+
+
+![Filter Lines Demo](https://dl.dropboxusercontent.com/u/44889921/filter_lines_demo.gif)
