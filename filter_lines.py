@@ -28,7 +28,8 @@ class FilterLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type = 'string'):
         self.search_type = search_type
-        search_text = sublime.get_clipboard()
+        # search_text = sublime.get_clipboard()
+        search_text = ""
 
         if self.search_type == 'string':
             prompt = "Filter file for lines containing: "
@@ -102,7 +103,8 @@ class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type = 'string'):
         self.search_type = search_type
-        search_text = sublime.get_clipboard()
+        # search_text = sublime.get_clipboard()
+        search_text = ""
 
         if self.search_type == 'string':
             prompt = "Fold to lines containing: "

@@ -7,6 +7,7 @@ Works with Sublime Text 2 and Sublime Text 3.
 * [How to install](#how-to-install)
 * [Available actions](#available-actions)
 * [Feedback](#feedback)
+* [Demo](#demo)
 
 ## How to install ##
 
@@ -41,5 +42,6 @@ Then clone this repository:
 
 * https://github.com/davidpeckham/FilterLines/issues
 
+## Demo ##
 
 ![Filter Lines Demo](https://dl.dropboxusercontent.com/u/44889921/filter_lines_demo.gif)
