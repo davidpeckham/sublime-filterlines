@@ -28,8 +28,12 @@ class FilterLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type = 'string'):
         self.search_type = search_type
-        # search_text = sublime.get_clipboard()
+
+        settings = sublime.load_settings('Filter Lines.sublime-settings')
+
         search_text = ""
+        if settings.get('preserve_search', True):
+            search_text = settings.get('latest_search', True)
 
         if self.search_type == 'string':
             prompt = "Filter file for lines containing: "
@@ -40,6 +44,9 @@ class FilterLinesCommand(sublime_plugin.WindowCommand):
 
     def on_done(self, text):
         if self.window.active_view():
+            settings = sublime.load_settings('Filter Lines.sublime-settings')
+            if settings.get('preserve_search', True):
+                settings.set('latest_search', text)
             self.window.active_view().run_command("filter_to_matching_lines", { "needle": text, "search_type": self.search_type })
 
 
@@ -103,8 +110,12 @@ class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type = 'string'):
         self.search_type = search_type
-        # search_text = sublime.get_clipboard()
+
+        settings = sublime.load_settings('Filter Lines.sublime-settings')
+
         search_text = ""
+        if settings.get('preserve_search', True):
+            search_text = settings.get('latest_search', True)
 
         if self.search_type == 'string':
             prompt = "Fold to lines containing: "
@@ -115,6 +126,9 @@ class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
     def on_done(self, text):
         if self.window.active_view():
+            settings = sublime.load_settings('Filter Lines.sublime-settings')
+            if settings.get('preserve_search', True):
+                settings.set('latest_search', text)
             self.window.active_view().run_command("fold_to_matching_lines", { "needle": text, "search_type": self.search_type })
 
 

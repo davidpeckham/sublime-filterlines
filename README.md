@@ -37,6 +37,7 @@ Then clone this repository:
 
 * `case_sensitive`:  search is case sensitive by default
 * `use_new_buffer_for_filter_results`:  set this to false to overwrite the current buffer
+* `preserve_search`:  if true, remembers your latest search string or regex and uses it for your next search
 
 ## Feedback ##
 
