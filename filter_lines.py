@@ -33,7 +33,7 @@ class FilterLinesCommand(sublime_plugin.WindowCommand):
 
         search_text = ""
         if settings.get('preserve_search', True):
-            search_text = settings.get('latest_search', True)
+            search_text = settings.get('latest_search', '')
 
         if self.search_type == 'string':
             prompt = "Filter file for lines containing: "
@@ -115,7 +115,7 @@ class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
         search_text = ""
         if settings.get('preserve_search', True):
-            search_text = settings.get('latest_search', True)
+            search_text = settings.get('latest_search', '')
 
         if self.search_type == 'string':
             prompt = "Fold to lines containing: "
