@@ -11,18 +11,9 @@ Works with Sublime Text 2 and Sublime Text 3.
 
 ## How to install ##
 
-### Package Control ###
-
-Install Will Bond's [Package Control](http://wbond.net/sublime_packages/package_control), and then:
-
-* In the Command Palette, enter `Package Control: Install Package`
-* Search for `Filter Lines` and install it
-
-### Github ###
-
 Go to your Sublime Text "Packages" directory (`Preferences` / `Browse Packages...`).
 
-Then clone this repository:
+Then clone this GitHub repository:
 
     $ git clone https://github.com/davidpeckham/FilterLines.git
 
