@@ -3,7 +3,12 @@ import re
 import sublime
 import sublime_plugin
 
-from match import match
+try:
+    # Python 3
+    from .match import match
+except (ValueError):
+    # Python 2
+    from match import match
 
 
 st_version = 2

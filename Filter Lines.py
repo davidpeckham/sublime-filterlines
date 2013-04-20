@@ -4,5 +4,13 @@ import sublime
 import sublime_plugin
 
 
-from filter_to_lines_command import FilterToLinesCommand
-from fold_to_lines_command import FoldToLinesCommand
+try:
+    # Python 3
+    from .filter_to_lines_command import *
+    from .fold_to_lines_command import *
+
+except (ValueError):
+    # Python 2
+    from filter_to_lines_command import *
+    from fold_to_lines_command import *
+

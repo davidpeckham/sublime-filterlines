@@ -15,7 +15,7 @@ Go to your Sublime Text "Packages" directory (`Preferences` / `Browse Packages..
 
 Then clone this GitHub repository:
 
-    $ git clone https://github.com/davidpeckham/FilterLines.git
+    $ git clone https://github.com/davidpeckham/FilterLines.git "Filter Lines"
 
 ## Available actions ##
 
