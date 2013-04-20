@@ -1,30 +1,17 @@
+import re
 
-import sublime, sublime_plugin, re
+import sublime
+import sublime_plugin
+
+from match import match
 
 
 st_version = 2
-
 if sublime.version() == '' or int(sublime.version()) > 3000:
     st_version = 3
 
 
-def matches(needle, haystack, search_type):
-    settings = sublime.load_settings('Filter Lines.sublime-settings')
-    case_sensitive = settings.get('case_sensitive', True)
-
-    if search_type == "regex":
-        if not case_sensitive:
-            return re.search(needle, haystack, re.IGNORECASE)
-        else:
-            return re.search(needle, haystack)
-    else:
-        if not case_sensitive:
-            needle = needle.upper()
-            haystack = haystack.upper()
-        return (needle in haystack)
-
-
-class FilterLinesCommand(sublime_plugin.WindowCommand):
+class FilterToLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type = 'string'):
         self.search_type = search_type
@@ -70,7 +57,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = self.view.split_by_newlines(region)
 
             for line in lines:
-                if matches(needle, self.view.substr(line), search_type):
+                if match(needle, self.view.substr(line), search_type):
                     if st_version == 2:
                         results_view.insert(results_edit, results_view.size(), self.view.substr(line) + '\n')
                     else:
@@ -93,7 +80,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = view.split_by_newlines(region)
 
             for line in reversed(lines):
-                if not matches(needle, view.substr(line), search_type):
+                if not match(needle, view.substr(line), search_type):
                     view.erase(edit, view.full_line(line))
 
     def run(self, edit, needle, search_type):
@@ -105,6 +92,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             self.filter_in_place(edit, needle, search_type)
         sublime.status_message("")
 
+<<<<<<< HEAD:filter_lines.py
 
 class FoldToFilteredLinesCommand(sublime_plugin.WindowCommand):
 
@@ -167,3 +155,5 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, needle, search_type):
         self.fold(edit, needle, search_type)
+=======
+>>>>>>> module:filter_to_lines_command.py
