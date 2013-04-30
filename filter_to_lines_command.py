@@ -30,7 +30,7 @@ class FilterToLinesCommand(sublime_plugin.WindowCommand):
         if self.search_type == 'string':
             prompt = "Filter file for lines containing: "
         else:
-            prompt = "Filter file for lines matching: "
+            prompt = "Filter file for lines matching regex: "
 
         sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 

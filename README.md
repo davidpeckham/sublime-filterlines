@@ -11,6 +11,15 @@ Works with Sublime Text 2 and Sublime Text 3.
 
 ## How to install ##
 
+### Package Control ###
+
+Install Will Bond's [Package Control](http://wbond.net/sublime_packages/package_control), and then:
+
+* In the Command Palette, enter `Package Control: Install Package`
+* Search for `Filter Lines` and install it
+
+### Github ###
+
 Go to your Sublime Text "Packages" directory (`Preferences` / `Browse Packages...`).
 
 Then clone this GitHub repository:
@@ -19,10 +28,12 @@ Then clone this GitHub repository:
 
 ## Available actions ##
 
-* Edit > Line > Filter To Lines Containing String:  <kbd>Ctrl+Shift+F</kbd>
-* Edit > Line > Filter To Lines Matching Regex:  <kbd>Ctrl+Option+Shift+F</kbd> / <kbd>Ctrl+Alt+Shift+F</kbd>
-* Edit > Code Folding > Fold To Lines Containing String
-* Edit > Code Folding > Fold To Lines Matching Regex
+* Edit > Line > Filter With Regex:  <kbd>⌘+F</kbd> <kbd>⌘+R</kbd>
+* Edit > Line > Filter With Search:  <kbd>⌘+F</kbd> <kbd>⌘+S</kbd>
+* Edit > Code Folding > Fold With Regex:  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
+* Edit > Code Folding > Fold With Search:  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
+
+On Windows and Linux, press the <kbd>ctrl</kbd> key instead of the <kbd>⌘</kbd> key.
 
 ## Preferences ##
 

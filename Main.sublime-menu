@@ -8,8 +8,8 @@
                 "children":
                 [
                     { "caption": "-" },
-                    { "caption": "Filter To Lines Containing String", "command": "filter_to_lines", "args": { "search_type": "string" } },
-                    { "caption": "Filter To Lines Matching Regex", "command": "filter_to_lines", "args": { "search_type": "regex" } }
+                    { "caption": "Filter With Regex", "command": "filter_to_lines", "args": { "search_type": "regex" } },
+                    { "caption": "Filter With Search", "command": "filter_to_lines", "args": { "search_type": "string" } }
                 ]
             },
             {
@@ -17,8 +17,8 @@
                 "children":
                 [
                     { "caption": "-" },
-                    { "caption": "Fold to Lines Containing String", "command": "fold_to_lines", "args": { "search_type": "string" } },
-                    { "caption": "Fold to Lines Matching Regex", "command": "fold_to_lines", "args": { "search_type": "regex" } }
+                    { "caption": "Fold With Regex", "command": "fold_to_lines", "args": { "search_type": "regex" } },
+                    { "caption": "Fold With Search", "command": "fold_to_lines", "args": { "search_type": "string" } }
                 ]
             }
         ]

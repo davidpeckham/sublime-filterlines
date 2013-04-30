@@ -30,7 +30,7 @@ class FoldToLinesCommand(sublime_plugin.WindowCommand):
         if self.search_type == 'string':
             prompt = "Fold to lines containing: "
         else:
-            prompt = "Fold to lines matching: "
+            prompt = "Fold to lines matching regex: "
 
         sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 
@@ -69,7 +69,7 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
                 if matched and folds:
                     self.fold_regions(folds)
                     folds = []
-                else:
+                elif not matched:
                     folds.append(line)
 
             if folds:
