@@ -1,6 +1,9 @@
 {
-	// If true, searches are case-sensitive
-	"case_sensitive": true,
+	// If true, string searches are case-sensitive
+	"case_sensitive_string_search": false,
+
+	// If true, regular expression matching is case-sensitive
+	"case_sensitive_regex_search": true,
 
 	// If true, filtered results will open in a new buffer. If false,
 	// results will overwrite the current buffer

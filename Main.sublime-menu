@@ -9,7 +9,7 @@
                 [
                     { "caption": "-" },
                     { "caption": "Filter With Regex", "command": "filter_to_lines", "args": { "search_type": "regex" } },
-                    { "caption": "Filter With Search", "command": "filter_to_lines", "args": { "search_type": "string" } }
+                    { "caption": "Filter With String", "command": "filter_to_lines", "args": { "search_type": "string" } }
                 ]
             },
             {
@@ -18,7 +18,7 @@
                 [
                     { "caption": "-" },
                     { "caption": "Fold With Regex", "command": "fold_to_lines", "args": { "search_type": "regex" } },
-                    { "caption": "Fold With Search", "command": "fold_to_lines", "args": { "search_type": "string" } }
+                    { "caption": "Fold With String", "command": "fold_to_lines", "args": { "search_type": "string" } }
                 ]
             }
         ]

@@ -28,16 +28,17 @@ Then clone this GitHub repository:
 
 ## Available actions ##
 
-* Edit > Line > Filter With Regex:  <kbd>⌘+F</kbd> <kbd>⌘+R</kbd>
-* Edit > Line > Filter With Search:  <kbd>⌘+F</kbd> <kbd>⌘+S</kbd>
-* Edit > Code Folding > Fold With Regex:  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
-* Edit > Code Folding > Fold With Search:  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
+* Edit > Line > Filter With Regex:  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
+* Edit > Line > Filter With String:  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
+* Edit > Code Folding > Fold With Regex
+* Edit > Code Folding > Fold With String
 
 On Windows and Linux, press the <kbd>ctrl</kbd> key instead of the <kbd>⌘</kbd> key.
 
 ## Preferences ##
 
-* `case_sensitive`:  search is case sensitive by default
+* `case_sensitive_regex_search`:  set this to true to make regex search case-sensitive (default is true)
+* `case_sensitive_string_search`:  set this to true to make string search case-sensitive (default is false)
 * `use_new_buffer_for_filter_results`:  set this to false to overwrite the current buffer
 * `preserve_search`:  if true, remembers your latest search string or regex and uses it for your next search
 

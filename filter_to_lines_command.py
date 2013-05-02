@@ -44,7 +44,7 @@ class FilterToLinesCommand(sublime_plugin.WindowCommand):
 
 class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
-    def filter_to_new_buffer(self, edit, needle, search_type):
+    def filter_to_new_buffer(self, edit, needle, search_type, case_sensitive):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
@@ -62,7 +62,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = self.view.split_by_newlines(region)
 
             for line in lines:
-                if match(needle, self.view.substr(line), search_type):
+                if match(needle, self.view.substr(line), search_type, case_sensitive):
                     if st_version == 2:
                         results_view.insert(results_edit, results_view.size(), self.view.substr(line) + '\n')
                     else:
@@ -73,7 +73,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         results_view.set_read_only(True)
 
 
-    def filter_in_place(self, edit, needle, search_type):
+    def filter_in_place(self, edit, needle, search_type, case_sensitive):
         # get non-empty selections
         regions = [s for s in view.sel() if not s.empty()]
 
@@ -85,15 +85,23 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = view.split_by_newlines(region)
 
             for line in reversed(lines):
-                if not match(needle, view.substr(line), search_type):
+                if not match(needle, view.substr(line), search_type, case_sensitive):
                     view.erase(edit, view.full_line(line))
 
     def run(self, edit, needle, search_type):
         sublime.status_message("Filtering")
         settings = sublime.load_settings('Filter Lines.sublime-settings')
+
+        case_sensitive = False
+        if search_type == 'string':
+            case_sensitive = settings.get('case_sensitive_string_search', False)
+        elif search_type == 'regex':
+            case_sensitive = settings.get('case_sensitive_regex_search', True)
+
         if settings.get('use_new_buffer_for_filter_results', True):
-            self.filter_to_new_buffer(edit, needle, search_type)
+            self.filter_to_new_buffer(edit, needle, search_type, case_sensitive)
         else:
-            self.filter_in_place(edit, needle, search_type)
+            self.filter_in_place(edit, needle, search_type, case_sensitive)
+
         sublime.status_message("")
 

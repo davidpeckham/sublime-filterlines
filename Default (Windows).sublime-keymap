@@ -1,6 +1,4 @@
 [  
-    { "keys": ["ctrl+f", "ctrl+r"], "command": "filter_to_lines", "args": { "search_type": "regex" } },
-    { "keys": ["ctrl+f", "ctrl+s"], "command": "filter_to_lines", "args": { "search_type": "string" } },
-    { "keys": ["ctrl+k", "ctrl+r"], "command": "fold_to_lines", "args": { "search_type": "regex" } },
-    { "keys": ["ctrl+k", "ctrl+s"], "command": "fold_to_lines", "args": { "search_type": "string" } }
+    { "keys": ["ctrl+k", "ctrl+r"], "command": "filter_to_lines", "args": { "search_type": "regex" } },
+    { "keys": ["ctrl+k", "ctrl+s"], "command": "filter_to_lines", "args": { "search_type": "string" } }
 ] 

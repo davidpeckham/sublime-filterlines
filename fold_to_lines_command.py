@@ -51,7 +51,7 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
         self.view.fold(region)
 
 
-    def fold(self, edit, needle, search_type):
+    def fold(self, edit, needle, search_type, case_sensitive):
         # get non-empty selections
         regions = [s for s in self.view.sel() if not s.empty()]
 
@@ -65,7 +65,7 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
             for line in reversed(lines):
 
-                matched = match(needle, self.view.substr(line), search_type)
+                matched = match(needle, self.view.substr(line), search_type, case_sensitive)
                 if matched and folds:
                     self.fold_regions(folds)
                     folds = []
@@ -76,4 +76,12 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
                 self.fold_regions(folds)
 
     def run(self, edit, needle, search_type):
-        self.fold(edit, needle, search_type)
+        settings = sublime.load_settings('Filter Lines.sublime-settings')
+
+        case_sensitive = False
+        if search_type == 'string':
+            case_sensitive = settings.get('case_sensitive_string_search', False)
+        elif search_type == 'regex':
+            case_sensitive = settings.get('case_sensitive_regex_search', True)
+
+        self.fold(edit, needle, search_type, case_sensitive)
