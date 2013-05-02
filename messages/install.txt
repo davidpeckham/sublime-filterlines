@@ -8,13 +8,13 @@
 
     To filter your file to lines that contain a string or match a regex:
 
-      Edit > Line > Filter With Regex  (cmd + F  cmd + R)
-      Edit > Line > Filter With Search  (cmd + F  cmd + S)
+      Edit > Line > Filter With Regex  (cmd + K  cmd + R)
+      Edit > Line > Filter With String  (cmd + K  cmd + S)
 
     To fold your file to lines that contain a string or match a regex:
 
-      Edit > Code Folding > Fold With Regex  (cmd + K  cmd + R) 
-      Edit > Code Folding > Fold With Search  (cmd + K  cmd + S)
+      Edit > Code Folding > Fold With Regex
+      Edit > Code Folding > Fold With String
 
     On Windows and Linux, use the ctrl key instead of the cmd key.
 
