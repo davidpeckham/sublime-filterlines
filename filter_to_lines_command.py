@@ -48,6 +48,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
+        results_view.set_syntax_file(self.view.settings().get('syntax'))
         if st_version == 2:
             results_edit = results_view.begin_edit()
 
