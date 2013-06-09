@@ -48,7 +48,6 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
-        results_view.set_syntax_file(self.view.settings().get('syntax'))
         if st_version == 2:
             results_edit = results_view.begin_edit()
 
@@ -69,6 +68,15 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
                     else:
                         results_view.run_command('append', { 'characters': self.view.substr(line) + '\n', 'force': True, 'scroll_to_end': False })
 
+        if results_view.size() > 0:
+            results_view.set_syntax_file(self.view.settings().get('syntax'))
+        else:
+            message = 'Filtering lines for "%s" %s\n\n0 matches\n' % (needle, '(case-sensitive)' if case_sensitive else '(not case-sensitive)')
+            if st_version == 2:
+                results_view.insert(results_edit, results_view.size(), message)
+            else:
+                results_view.run_command('append', { 'characters': message, 'force': True, 'scroll_to_end': False })
+
         if st_version == 2:
             results_view.end_edit(results_edit)
 
@@ -87,6 +95,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             for line in reversed(lines):
                 if not match(needle, view.substr(line), search_type, case_sensitive):
                     view.erase(edit, view.full_line(line))
+
 
     def run(self, edit, needle, search_type):
         sublime.status_message("Filtering")
