@@ -50,6 +50,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
+        results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
         if st_version == 2:
             results_edit = results_view.begin_edit()
 
