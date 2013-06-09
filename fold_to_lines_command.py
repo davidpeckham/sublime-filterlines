@@ -1,15 +1,5 @@
-import re
-
 import sublime
 import sublime_plugin
-
-try:
-    # Python 3
-    from .match import match
-except (ValueError):
-    # Python 2
-    from match import match
-
 
 st_version = 2
 if sublime.version() == '' or int(sublime.version()) > 3000:
@@ -27,10 +17,12 @@ class FoldToLinesCommand(sublime_plugin.WindowCommand):
         if settings.get('preserve_search', True):
             search_text = settings.get('latest_search', '')
 
+        invert_search = settings.get('invert_search', False)
+
         if self.search_type == 'string':
-            prompt = "Fold to lines containing: "
+            prompt = "Fold to lines %s: " % ('not containing' if invert_search else 'containing')
         else:
-            prompt = "Fold to lines matching regex: "
+            prompt = "Fold to lines %s regex: " % ('not matching' if invert_search else 'matching')
 
         sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 
@@ -51,7 +43,7 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
         self.view.fold(region)
 
 
-    def fold(self, edit, needle, search_type, case_sensitive):
+    def fold(self, edit, needle, search_type, case_sensitive, invert_search):
         # get non-empty selections
         regions = [s for s in self.view.sel() if not s.empty()]
 
@@ -65,7 +57,7 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
             for line in reversed(lines):
 
-                matched = match(needle, self.view.substr(line), search_type, case_sensitive)
+                matched = match_line(needle, self.view.substr(line), search_type, case_sensitive, invert_search)
                 if matched and folds:
                     self.fold_regions(folds)
                     folds = []
@@ -84,4 +76,6 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
         elif search_type == 'regex':
             case_sensitive = settings.get('case_sensitive_regex_search', True)
 
-        self.fold(edit, needle, search_type, case_sensitive)
+        invert_search = settings.get('invert_search', False)
+
+        self.fold(edit, needle, search_type, case_sensitive, invert_search)

@@ -12,5 +12,9 @@
 	// If true, your latest search string or regex will be saved, 
 	// and then restored for your next search. If false, the search
 	// string or regex will be blank
-	"preserve_search": true
+	"preserve_search": true,
+
+	// If true, find lines that do not match (useful when 
+	// progressively eliminating noise in log files)
+	"invert_search": false
 }

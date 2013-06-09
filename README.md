@@ -41,6 +41,7 @@ On Windows and Linux, press the <kbd>ctrl</kbd> key instead of the <kbd>⌘</kbd
 * `case_sensitive_string_search`:  set this to true to make string search case-sensitive (default is false)
 * `use_new_buffer_for_filter_results`:  set this to false to overwrite the current buffer
 * `preserve_search`:  if true, remembers your latest search string or regex and uses it for your next search
+* `invert_search`:  if true, find lines that do not match (useful when progressively eliminating noise in log files)
 
 ## Feedback ##
 

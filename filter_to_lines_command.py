@@ -1,15 +1,5 @@
-import re
-
 import sublime
 import sublime_plugin
-
-try:
-    # Python 3
-    from .match import match
-except (ValueError):
-    # Python 2
-    from match import match
-
 
 st_version = 2
 if sublime.version() == '' or int(sublime.version()) > 3000:
@@ -27,10 +17,13 @@ class FilterToLinesCommand(sublime_plugin.WindowCommand):
         if settings.get('preserve_search', True):
             search_text = settings.get('latest_search', '')
 
+        invert_search = settings.get('invert_search', False)
+
         if self.search_type == 'string':
-            prompt = "Filter file for lines containing: "
+            prompt = "Filter file for lines %s: " % ('not containing' if invert_search else 'containing')
         else:
-            prompt = "Filter file for lines matching regex: "
+            prompt = "Filter file for lines %s regex: " % ('not matching' if invert_search else 'matching')
+
 
         sublime.active_window().show_input_panel(prompt, search_text, self.on_done, None, None)
 
@@ -44,7 +37,7 @@ class FilterToLinesCommand(sublime_plugin.WindowCommand):
 
 class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
-    def filter_to_new_buffer(self, edit, needle, search_type, case_sensitive):
+    def filter_to_new_buffer(self, edit, needle, search_type, case_sensitive, invert_search):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
@@ -62,7 +55,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = self.view.split_by_newlines(region)
 
             for line in lines:
-                if match(needle, self.view.substr(line), search_type, case_sensitive):
+                if match_line(needle, self.view.substr(line), search_type, case_sensitive, invert_search):
                     if st_version == 2:
                         results_view.insert(results_edit, results_view.size(), self.view.substr(line) + '\n')
                     else:
@@ -81,7 +74,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             results_view.end_edit(results_edit)
 
 
-    def filter_in_place(self, edit, needle, search_type, case_sensitive):
+    def filter_in_place(self, edit, needle, search_type, case_sensitive, invert_search):
         # get non-empty selections
         regions = [s for s in view.sel() if not s.empty()]
 
@@ -93,7 +86,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             lines = view.split_by_newlines(region)
 
             for line in reversed(lines):
-                if not match(needle, view.substr(line), search_type, case_sensitive):
+                if not match_line(needle, view.substr(line), search_type, case_sensitive, invert_search):
                     view.erase(edit, view.full_line(line))
 
 
@@ -107,10 +100,12 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         elif search_type == 'regex':
             case_sensitive = settings.get('case_sensitive_regex_search', True)
 
+        invert_search = settings.get('invert_search', False)
+
         if settings.get('use_new_buffer_for_filter_results', True):
-            self.filter_to_new_buffer(edit, needle, search_type, case_sensitive)
+            self.filter_to_new_buffer(edit, needle, search_type, case_sensitive, invert_search)
         else:
-            self.filter_in_place(edit, needle, search_type, case_sensitive)
+            self.filter_in_place(edit, needle, search_type, case_sensitive, invert_search)
 
         sublime.status_message("")
 
