@@ -18,6 +18,8 @@ Install Will Bond's [Package Control](http://wbond.net/sublime_packages/package_
 * In the Command Palette, enter `Package Control: Install Package`
 * Search for `Filter Lines` and install it
 
+Sublime Text 3 beta users, see Will's [alpha release of Package Control for Sublime Text 3](http://wbond.net/sublime_packages/package_control/installation#ST3).
+
 ### Github ###
 
 Go to your Sublime Text "Packages" directory (`Preferences` / `Browse Packages...`).
