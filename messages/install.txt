@@ -1,23 +1,20 @@
+Filter Lines is now installed
+=============================
 
+Now you can filter your file for lines that contain a string
+or match a regular expression
 
-    Filter Lines is now installed
-    -----------------------------
+To filter your file to lines that contain a string or match a regex:
 
-    Now you can filter your file for lines that contain a string
-    or match a regular expression
+  Edit > Line > Filter With Regex  (cmd + K  cmd + R)
+  Edit > Line > Filter With String  (cmd + K  cmd + S)
 
-    To filter your file to lines that contain a string or match a regex:
+To fold your file to lines that contain a string or match a regex:
 
-      Edit > Line > Filter With Regex  (cmd + K  cmd + R)
-      Edit > Line > Filter With String  (cmd + K  cmd + S)
+  Edit > Code Folding > Fold With Regex
+  Edit > Code Folding > Fold With String
 
-    To fold your file to lines that contain a string or match a regex:
-
-      Edit > Code Folding > Fold With Regex
-      Edit > Code Folding > Fold With String
-
-    On Windows and Linux, use the ctrl key instead of the cmd key.
-
+On Windows and Linux, use the ctrl key instead of the cmd key.
 
 
 Source and Bugs
