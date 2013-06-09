@@ -71,7 +71,6 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
         if st_version == 2:
             results_view.end_edit(results_edit)
-        results_view.set_read_only(True)
 
 
     def filter_in_place(self, edit, needle, search_type, case_sensitive):
