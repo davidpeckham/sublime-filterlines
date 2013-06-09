@@ -1,9 +1,18 @@
+import re
+
 import sublime
 import sublime_plugin
 
 st_version = 2
 if sublime.version() == '' or int(sublime.version()) > 3000:
     st_version = 3
+ 
+try:
+    # Python 3
+    from .match import match_line
+except (ValueError):
+    # Python 2
+    from match import match_line
 
 
 class FoldToLinesCommand(sublime_plugin.WindowCommand):
