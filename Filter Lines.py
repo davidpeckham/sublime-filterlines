@@ -69,7 +69,8 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
             results_edit = results_view.begin_edit()
 
         # get non-empty selections
-        regions = [s for s in self.view.sel() if not s.empty()]
+        # regions = [s for s in self.view.sel() if not s.empty()]
+        regions = []
 
         # no selections? filter the whole document
         if len(regions) == 0:
