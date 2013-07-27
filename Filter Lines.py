@@ -99,7 +99,8 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def filter_in_place(self, edit, needle, search_type, case_sensitive, invert_search):
         # get non-empty selections
-        regions = [s for s in view.sel() if not s.empty()]
+        # regions = [s for s in view.sel() if not s.empty()]
+        regions = []
 
         # no selections? filter the whole document
         if len(regions) == 0:
@@ -171,7 +172,8 @@ class FoldToMatchingLinesCommand(sublime_plugin.TextCommand):
 
     def fold(self, edit, needle, search_type, case_sensitive, invert_search):
         # get non-empty selections
-        regions = [s for s in self.view.sel() if not s.empty()]
+        # regions = [s for s in self.view.sel() if not s.empty()]
+        regions = []
 
         # no selections? filter the whole document
         if len(regions) == 0:
