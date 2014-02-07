@@ -9,12 +9,16 @@
 	// results will overwrite the current buffer
 	"use_new_buffer_for_filter_results": true,
 
-	// If true, your latest search string or regex will be saved, 
+	// If true, your latest search string or regex will be saved,
 	// and then restored for your next search. If false, the search
 	// string or regex will be blank
 	"preserve_search": true,
 
-	// If true, find lines that do not match (useful when 
+	// If true, find lines that do not match (useful when
 	// progressively eliminating noise in log files)
-	"invert_search": false
+	"invert_search": false,
+
+    // If true, show an input to specify a regex separator
+    // to split the text (instead of using line separator)
+    "custom_separator": false
 }
