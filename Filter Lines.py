@@ -90,8 +90,10 @@ class FilterToLinesCommand(sublime_plugin.WindowCommand):
             if (settings.get('custom_separator', False) and
                     settings.get('use_new_buffer_for_filter_results', True)):
                 f = functools.partial(self.on_separator, text)
+                default_sep = settings.get('default_custom_separator',
+                                           r'(\n|\r\n|\r)')
                 sublime.active_window().show_input_panel(
-                    'Custom regex separator', r'(\n|\r\n|\r)',
+                    'Custom regex separator', default_sep,
                     f, None, None)
                 return
 
