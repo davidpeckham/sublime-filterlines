@@ -104,14 +104,14 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
         # no selections? filter the whole document
         if len(regions) == 0:
-            regions = [ sublime.Region(0, view.size()) ]
+            regions = [ sublime.Region(0, self.view.size()) ]
 
         for region in reversed(regions):
-            lines = view.split_by_newlines(region)
+            lines = self.view.split_by_newlines(region)
 
             for line in reversed(lines):
-                if not match_line(needle, view.substr(line), search_type, case_sensitive, invert_search):
-                    view.erase(edit, view.full_line(line))
+                if not match_line(needle, self.view.substr(line), search_type, case_sensitive, invert_search):
+                    self.view.erase(edit, self.view.full_line(line))
 
     def run(self, edit, needle, search_type):
         sublime.status_message("Filtering")
