@@ -142,7 +142,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
                 text += line
 
         if st_version == 2:
-            results_view.insert(results_edit, results_view.size(), line)
+            results_view.insert(results_edit, results_view.size(), text)
         else:
             results_view.run_command(
                 'append', {'characters': text, 'force': True,
