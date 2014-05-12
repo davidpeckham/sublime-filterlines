@@ -1,8 +1,8 @@
-# Filter Lines plugin for Sublime Text
+# Filter Lines
 
 A Sublime Text plugin that filters lines containing a string or matching a regular expression. Searches are case sensitive by default and use the Python regular expression syntax.
 
-Works with Sublime Text 2 and Sublime Text 3.
+Works with Sublime Text 2 and 3.
 
 * [How to install](#how-to-install)
 * [Available actions](#available-actions)
@@ -13,12 +13,10 @@ Works with Sublime Text 2 and Sublime Text 3.
 
 ### Package Control ###
 
-Install Will Bond's [Package Control](http://wbond.net/sublime_packages/package_control), and then:
+Install Will Bond's [Package Control](https://sublime.wbond.net/installation), and then:
 
-* In the Command Palette, enter `Package Control: Install Package`
+* In the Command Palette, choose `Package Control: Install Package`
 * Search for `Filter Lines` and install it
-
-Sublime Text 3 beta users, see Will's [alpha release of Package Control for Sublime Text 3](http://wbond.net/sublime_packages/package_control/installation#ST3).
 
 ### Github ###
 

@@ -18,9 +18,8 @@
 	// progressively eliminating noise in log files)
 	"invert_search": false,
 
-    // If true, show an input to specify a regex separator
-    // to split the text (instead of using line separator)
-    "custom_separator": false,
-    "default_custom_separator": "(\n|\r\n|\r)"
-
+	// If true, show an input to specify a regex separator
+	// to split the text (instead of using line separator)
+	"custom_separator": false,
+	"default_custom_separator": "(\n|\r\n|\r)"
 }

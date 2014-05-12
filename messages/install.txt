@@ -1,9 +1,6 @@
 Filter Lines is now installed
 =============================
 
-Now you can filter your file for lines that contain a string
-or match a regular expression
-
 To filter your file to lines that contain a string or match a regex:
 
   Edit > Line > Filter With Regex  (cmd + K  cmd + R)
