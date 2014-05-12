@@ -133,14 +133,20 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
                 itersplit(separator, self.view.substr(r))
                 for r in regions)
 
+        text = ''
         for line in lines:
-            if match_line(needle, line, search_type, case_sensitive, invert_search):
+            if match_line(needle, line, search_type, case_sensitive,
+                          invert_search):
                 if separator is None:
                     line += '\n'
-                if st_version == 2:
-                    results_view.insert(results_edit, results_view.size(), line)
-                else:
-                    results_view.run_command('append', { 'characters': line, 'force': True, 'scroll_to_end': False })
+                text += line
+
+        if st_version == 2:
+            results_view.insert(results_edit, results_view.size(), line)
+        else:
+            results_view.run_command(
+                'append', {'characters': text, 'force': True,
+                           'scroll_to_end': False})
 
         if results_view.size() > 0:
             results_view.set_syntax_file(self.view.settings().get('syntax'))
