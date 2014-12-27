@@ -1,5 +1,5 @@
-Filter Lines is now installed
-=============================
+Filter Lines
+============
 
 To filter your file to lines that contain a string or match a regex:
 
@@ -14,8 +14,6 @@ To fold your file to lines that contain a string or match a regex:
 On Windows and Linux, use the ctrl key instead of the cmd key.
 
 
-Source and Bugs
-===============
+For feedback, bugs, and source code:
 
-* Code: https://github.com/davidpeckham/FilterLines
-* Bugs, features, questions: https://github.com/davidpeckham/FilterLines/issues
+https://github.com/davidpeckham/FilterLines
