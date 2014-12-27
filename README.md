@@ -1,6 +1,6 @@
 # Filter Lines
 
-Quickly find all lines matching a string or regular expression in Sublime Text 3.
+Quickly find all lines matching a string or regular expression in Sublime Text 2.
 
 * Edit > Line > Filter With Regex  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
 * Edit > Line > Filter With String  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>

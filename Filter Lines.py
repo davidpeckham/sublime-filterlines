@@ -7,6 +7,9 @@ import sublime
 import sublime_plugin
 
 
+imap = itertools.imap
+
+
 def match_line(needle, haystack, search_type, case_sensitive, invert_search = False):
     if invert_search:
         return not search_line(needle, haystack, search_type, case_sensitive)
@@ -105,6 +108,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
         results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
+        results_edit = results_view.begin_edit()
 
         # get non-empty selections
         # regions = [s for s in self.view.sel() if not s.empty()]
@@ -116,7 +120,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
         if separator is None:
             lines = (self.view.split_by_newlines(r) for r in regions)
-            lines = map(self.view.substr,
+            lines = imap(self.view.substr,
                          itertools.chain.from_iterable(lines))
         else:
             lines = itertools.chain.from_iterable(
@@ -131,15 +135,15 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
                     line += '\n'
                 text += line
 
-        results_view.run_command(
-            'append', {'characters': text, 'force': True,
-                       'scroll_to_end': False})
+        results_view.insert(results_edit, results_view.size(), text)
 
         if results_view.size() > 0:
             results_view.set_syntax_file(self.view.settings().get('syntax'))
         else:
             message = 'Filtering lines for "%s" %s\n\n0 matches\n' % (needle, '(case-sensitive)' if case_sensitive else '(not case-sensitive)')
-            results_view.run_command('append', { 'characters': message, 'force': True, 'scroll_to_end': False })
+            results_view.insert(results_edit, results_view.size(), message)
+
+        results_view.end_edit(results_edit)
 
     def filter_in_place(self, edit, needle, search_type, case_sensitive, invert_search):
         # get non-empty selections
