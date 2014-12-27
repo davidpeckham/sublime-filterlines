@@ -1,5 +1,6 @@
 {
 	"install": "messages/install.md",
 	"st3-2.0.0": "messages/st3-2.0.0.md",
-	"st3-2.0.1": "messages/st3-2.0.1.md"
+	"st3-2.0.1": "messages/st3-2.0.1.md",
+	"st3-2.0.2": "messages/st3-2.0.2.md"
 }
