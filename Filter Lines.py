@@ -7,9 +7,6 @@ import sublime
 import sublime_plugin
 
 
-imap = itertools.imap
-
-
 def match_line(needle, haystack, search_type, case_sensitive, invert_search = False):
     if invert_search:
         return not search_line(needle, haystack, search_type, case_sensitive)
@@ -120,7 +117,7 @@ class FilterToMatchingLinesCommand(sublime_plugin.TextCommand):
 
         if separator is None:
             lines = (self.view.split_by_newlines(r) for r in regions)
-            lines = imap(self.view.substr,
+            lines = itertools.imap(self.view.substr,
                          itertools.chain.from_iterable(lines))
         else:
             lines = itertools.chain.from_iterable(
