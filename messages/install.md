@@ -1,5 +1,4 @@
-Filter Lines
-============
+Quickly find lines that match a string or regular expression.
 
 To filter your file to lines that contain a string or match a regex:
 
@@ -16,4 +15,4 @@ On Windows and Linux, use the ctrl key instead of the cmd key.
 
 For feedback, bugs, and source code:
 
-https://github.com/davidpeckham/FilterLines
+https://github.com/davidpeckham/sublimetext-filterlines
