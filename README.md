@@ -13,7 +13,7 @@ On Windows and Linux, press the <kbd>ctrl</kbd> key instead of the <kbd>⌘</kbd
 Feedback
 --------
 
-https://github.com/davidpeckham/FilterLines/issues
+https://github.com/davidpeckham/sublime-filterlines/issues
 
 Demo
 ----

@@ -1,6 +1,7 @@
 {
 	"install": "messages/install.md",
-	"st2-2.0.0": "messages/st2-2.0.0.md",
-	"st2-2.0.1": "messages/st2-2.0.1.md",
-	"st2-2.0.2": "messages/st2-2.0.2.md"
+	"2.0.0": "messages/2.0.0.md",
+	"2.0.1": "messages/2.0.1.md",
+	"2.0.2": "messages/2.0.2.md",
+	"2.0.3": "messages/2.0.3.md"
 }
