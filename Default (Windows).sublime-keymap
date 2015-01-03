@@ -1,4 +1,4 @@
 [  
-    { "keys": ["ctrl+k", "ctrl+r"], "command": "filter_to_lines", "args": { "search_type": "regex" } },
-    { "keys": ["ctrl+k", "ctrl+s"], "command": "filter_to_lines", "args": { "search_type": "string" } }
+    { "keys": ["ctrl+k", "ctrl+r"], "command": "prompt_filter_to_lines", "args": { "search_type": "regex" } },
+    { "keys": ["ctrl+k", "ctrl+s"], "command": "prompt_filter_to_lines", "args": { "search_type": "string" } }
 ] 

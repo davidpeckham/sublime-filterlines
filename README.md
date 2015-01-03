@@ -23,4 +23,4 @@ Demo
 Thanks
 ------
 
-Filter Lines is based on a Sublime Text 2 [plugin tutorial by Daniel Beck](http://superuser.com/questions/452189/how-can-i-filter-a-file-for-lines-containing-a-string-in-sublime-text-2). If you want to write a plugin, Daniel's tutorial is a good place to start.
+Filter Lines is based on a Sublime Tex [plugin tutorial by Daniel Beck](http://superuser.com/questions/452189/how-can-i-filter-a-file-for-lines-containing-a-string-in-sublime-text-2). If you want to write a plugin, Daniel's tutorial is a good place to start.

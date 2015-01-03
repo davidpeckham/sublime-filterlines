@@ -1,4 +1,4 @@
 [  
-    { "keys": ["super+k", "super+r"], "command": "filter_to_lines", "args": { "search_type": "regex" } },
-    { "keys": ["super+k", "super+s"], "command": "filter_to_lines", "args": { "search_type": "string" } }
+    { "keys": ["super+k", "super+r"], "command": "prompt_filter_to_lines", "args": { "search_type": "regex" } },
+    { "keys": ["super+k", "super+s"], "command": "prompt_filter_to_lines", "args": { "search_type": "string" } }
 ] 
