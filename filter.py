@@ -19,6 +19,12 @@ class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
             prompt = "%s to lines %s: " % (filter_verb, 'not containing' if self.invert_search else 'containing')
         else:
             prompt = "%s to lines %s: " % (filter_verb, 'not matching' if self.invert_search else 'matching')
+        if not self.search_text:
+            view = self.window.active_view()
+            first = view.sel()[0]  # first region (or point)
+            region = first if first.size() else view.word(first.begin())
+            word = view.substr(region)
+            self.search_text = word
         sublime.active_window().show_input_panel(prompt, self.search_text, self.on_search_text_entered, None, None)
 
     def on_search_text_entered(self, search_text):
