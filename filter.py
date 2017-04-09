@@ -55,6 +55,7 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
         lines = itertools.groupby(self.view.find_all(needle, flags), self.view.line)
         lines = [l for l, _ in lines]
         self.line_numbers = settings.get('line_numbers', False)
+        self.new_tab = settings.get('create_new_tab', True)
         self.show_filtered_lines(edit, lines)
 
     def get_search_flags(self, search_type, settings):
@@ -69,18 +70,24 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
         return flags
 
     def show_filtered_lines(self, edit, lines):
-        results_view = self.view.window().new_file()
-        results_view.set_name('Filter Results')
-        results_view.set_scratch(True)
-        results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
-
         if self.invert_search:
             filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line in lines]
             lines = self.view.lines(sublime.Region(0, self.view.size()))
             for line_number in reversed(filtered_line_numbers):
                 del lines[line_number]
 
-        text = '\n'.join([self.prepare_output_line(l) for l in lines]);
+        if self.new_tab:
+            text = '\n'.join([self.prepare_output_line(l) for l in lines]);
+            self.create_new_tab(text)
+        else:
+            for line in reversed(lines):
+                self.view.erase(edit, self.view.full_line(line))
+
+    def create_new_tab(self, text):
+        results_view = self.view.window().new_file()
+        results_view.set_name('Filter Results')
+        results_view.set_scratch(True)
+        results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
         results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
         results_view.set_syntax_file(self.view.settings().get('syntax'))
 

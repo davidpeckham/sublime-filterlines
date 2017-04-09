@@ -15,5 +15,8 @@
 	"invert_search": false,
 
 	// Show source file line numbers in results
-	"line_numbers": false
+	"line_numbers": false,
+
+	// Create new tab for filter results
+	"create_new_tab": true
 }
