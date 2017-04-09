@@ -31,7 +31,7 @@ class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
         self.search_text = search_text
         self.save_settings()
         if self.window.active_view():
-            self.window.active_view().run_command(self.filter_command, { 
+            self.window.active_view().run_command(self.filter_command, {
                 "needle": self.search_text, "search_type": self.search_type })
 
     def load_settings(self):
@@ -78,21 +78,17 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line, _ in lines]
             for line_number in reversed(filtered_line_numbers):
                 del source_lines[line_number]
-            text = ''
-            for line in source_lines:
-                text += self.prepare_output_line(line, None)
-            results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
+            lines = source_lines
         else:
-            text = ''
-            for line, matches in lines:
-                text += self.prepare_output_line(line, matches)
-            results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
+            lines = [l for l, _ in lines]
 
+        text = '\n'.join([self.prepare_output_line(l) for l in lines]);
+        results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
         results_view.set_syntax_file(self.view.settings().get('syntax'))
 
-    def prepare_output_line(self, line, matches):
+    def prepare_output_line(self, line):
         if self.line_numbers and not self.invert_search:
             line_number = self.view.rowcol(line.begin())[0]
-            return '%5d: %s\n' % (line_number, self.view.substr(line))
+            return '%5d: %s' % (line_number, self.view.substr(line))
         else:
-            return '%s\n' % (self.view.substr(line))
+            return self.view.substr(line)
