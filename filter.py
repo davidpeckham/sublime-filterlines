@@ -63,7 +63,7 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             if not settings.get('case_sensitive_string_search', False):
                 flags = flags | sublime.IGNORECASE
         elif search_type == 'regex':
-            if not settings.get('case_sensitive_string_search', False):
+            if not settings.get('case_sensitive_regex_search', False):
                 flags = sublime.IGNORECASE
         return flags
 
