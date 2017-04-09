@@ -15,7 +15,7 @@ class FoldToLinesCommand(FilterToLinesCommand):
 
     def show_filtered_lines(self, edit, lines):
         source_lines = self.view.lines(sublime.Region(0, self.view.size()))
-        filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line, _ in lines]
+        filtered_line_numbers = {self.view.rowcol(line.begin())[0] for line, _ in lines}
         regions = []
         region = None
         for line in source_lines:
