@@ -33,6 +33,3 @@ class FoldToLinesCommand(FilterToLinesCommand):
             regions.append(region)
         if regions:
             self.view.fold(regions)
-
-    def prepare_output_line(self, line, matches):
-        pass
