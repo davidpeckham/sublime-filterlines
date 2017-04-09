@@ -53,6 +53,7 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
         self.invert_search = settings.get('invert_search', False)
         flags = self.get_search_flags(search_type, settings)
         lines = itertools.groupby(self.view.find_all(needle, flags), self.view.line)
+        lines = [l for l, _ in lines]
         self.line_numbers = settings.get('line_numbers', False)
         self.show_filtered_lines(edit, lines)
 
@@ -74,13 +75,10 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
         results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
 
         if self.invert_search:
-            source_lines = self.view.lines(sublime.Region(0, self.view.size()))
-            filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line, _ in lines]
+            filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line in lines]
+            lines = self.view.lines(sublime.Region(0, self.view.size()))
             for line_number in reversed(filtered_line_numbers):
-                del source_lines[line_number]
-            lines = source_lines
-        else:
-            lines = [l for l, _ in lines]
+                del lines[line_number]
 
         text = '\n'.join([self.prepare_output_line(l) for l in lines]);
         results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
