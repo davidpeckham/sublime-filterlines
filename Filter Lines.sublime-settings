@@ -10,10 +10,6 @@
 	// string or regex will be blank
 	"preserve_search": true,
 
-	// If true, find lines that do not match (useful when
-	// progressively eliminating noise in log files)
-	"invert_search": false,
-
 	// Show source file line numbers in results
 	"line_numbers": false,
 

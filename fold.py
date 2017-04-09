@@ -7,8 +7,8 @@ from .filter import FilterToLinesCommand
 
 class PromptFoldToLinesCommand(PromptFilterToLinesCommand):
 
-    def run(self, search_type = 'string'):
-        self._run(search_type, "fold_to_lines", "Fold")
+    def run(self, search_type = 'string', invert_search = False):
+        self._run(search_type, "fold_to_lines", "Fold", invert_search)
 
 
 class FoldToLinesCommand(FilterToLinesCommand):

@@ -8,8 +8,10 @@
                 "children":
                 [
                     { "caption": "-" },
-                    { "caption": "Filter With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex" } },
-                    { "caption": "Filter With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string" } }
+                    { "caption": "Include lines with Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
+                    { "caption": "Include lines with String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
+                    { "caption": "Exclude lines with Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
+                    { "caption": "Exclude lines with String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": true } }
                 ]
             },
             {
@@ -17,8 +19,10 @@
                 "children":
                 [
                     { "caption": "-" },
-                    { "caption": "Fold With Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex" } },
-                    { "caption": "Fold With String", "command": "prompt_fold_to_lines", "args": { "search_type": "string" } }
+                    { "caption": "Fold Excluding Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": false } },
+                    { "caption": "Fold Excluding String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": false } },
+                    { "caption": "Fold With Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": true } },
+                    { "caption": "Fold With String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": true } }
                 ]
             }
         ]
