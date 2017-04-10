@@ -8,13 +8,14 @@ settings_path = 'Filter Lines.sublime-settings'
 
 class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
 
-    def run(self, search_type = 'string'):
-        self._run(search_type, "filter_to_lines", "Filter")
+    def run(self, search_type = 'string', invert_search = False):
+        self._run(search_type, "filter_to_lines", "Filter", invert_search)
 
-    def _run(self, search_type, filter_command, filter_verb):
+    def _run(self, search_type, filter_command, filter_verb, invert_search):
         self.load_settings()
         self.filter_command = filter_command
         self.search_type = search_type
+        self.invert_search = invert_search
         if search_type == 'string':
             prompt = "%s to lines %s: " % (filter_verb, 'not containing' if self.invert_search else 'containing')
         else:
@@ -31,15 +32,14 @@ class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
         self.search_text = search_text
         self.save_settings()
         if self.window.active_view():
-            self.window.active_view().run_command(self.filter_command, { 
-                "needle": self.search_text, "search_type": self.search_type })
+            self.window.active_view().run_command(self.filter_command, {
+                "needle": self.search_text, "search_type": self.search_type, "invert_search": self.invert_search })
 
     def load_settings(self):
         self.settings = sublime.load_settings(settings_path)
         self.search_text = ""
         if self.settings.get('preserve_search', True):
             self.search_text = self.settings.get('latest_search', '')
-        self.invert_search = self.settings.get('invert_search', False)
 
     def save_settings(self):
         if self.settings.get('preserve_search', True):
@@ -48,12 +48,14 @@ class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
 
 class FilterToLinesCommand(sublime_plugin.TextCommand):
 
-    def run(self, edit, needle, search_type):
+    def run(self, edit, needle, search_type, invert_search):
         settings = sublime.load_settings(settings_path)
-        self.invert_search = settings.get('invert_search', False)
         flags = self.get_search_flags(search_type, settings)
         lines = itertools.groupby(self.view.find_all(needle, flags), self.view.line)
+        lines = [l for l, _ in lines]
         self.line_numbers = settings.get('line_numbers', False)
+        self.new_tab = settings.get('create_new_tab', True)
+        self.invert_search = invert_search ^ (not self.new_tab)
         self.show_filtered_lines(edit, lines)
 
     def get_search_flags(self, search_type, settings):
@@ -63,36 +65,35 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             if not settings.get('case_sensitive_string_search', False):
                 flags = flags | sublime.IGNORECASE
         elif search_type == 'regex':
-            if not settings.get('case_sensitive_string_search', False):
+            if not settings.get('case_sensitive_regex_search', False):
                 flags = sublime.IGNORECASE
         return flags
 
     def show_filtered_lines(self, edit, lines):
+        if self.invert_search:
+            filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line in lines]
+            lines = self.view.lines(sublime.Region(0, self.view.size()))
+            for line_number in reversed(filtered_line_numbers):
+                del lines[line_number]
+
+        if self.new_tab:
+            text = '\n'.join([self.prepare_output_line(l) for l in lines]);
+            self.create_new_tab(text)
+        else:
+            for line in reversed(lines):
+                self.view.erase(edit, self.view.full_line(line))
+
+    def create_new_tab(self, text):
         results_view = self.view.window().new_file()
         results_view.set_name('Filter Results')
         results_view.set_scratch(True)
         results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
-
-        if self.invert_search:
-            source_lines = self.view.lines(sublime.Region(0, self.view.size()))
-            filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line, _ in lines]
-            for line_number in reversed(filtered_line_numbers):
-                del source_lines[line_number]
-            text = ''
-            for line in source_lines:
-                text += self.prepare_output_line(line, None)
-            results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
-        else:
-            text = ''
-            for line, matches in lines:
-                text += self.prepare_output_line(line, matches)
-            results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
-
+        results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
         results_view.set_syntax_file(self.view.settings().get('syntax'))
 
-    def prepare_output_line(self, line, matches):
+    def prepare_output_line(self, line):
         if self.line_numbers and not self.invert_search:
             line_number = self.view.rowcol(line.begin())[0]
-            return '%5d: %s\n' % (line_number, self.view.substr(line))
+            return '%5d: %s' % (line_number, self.view.substr(line))
         else:
-            return '%s\n' % (self.view.substr(line))
+            return self.view.substr(line)

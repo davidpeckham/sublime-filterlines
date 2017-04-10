@@ -7,15 +7,15 @@ from .filter import FilterToLinesCommand
 
 class PromptFoldToLinesCommand(PromptFilterToLinesCommand):
 
-    def run(self, search_type = 'string'):
-        self._run(search_type, "fold_to_lines", "Fold")
+    def run(self, search_type = 'string', invert_search = False):
+        self._run(search_type, "fold_to_lines", "Fold", invert_search)
 
 
 class FoldToLinesCommand(FilterToLinesCommand):
 
     def show_filtered_lines(self, edit, lines):
         source_lines = self.view.lines(sublime.Region(0, self.view.size()))
-        filtered_line_numbers = [self.view.rowcol(line.begin())[0] for line, _ in lines]
+        filtered_line_numbers = {self.view.rowcol(line.begin())[0] for line in lines}
         regions = []
         region = None
         for line in source_lines:
@@ -33,6 +33,3 @@ class FoldToLinesCommand(FilterToLinesCommand):
             regions.append(region)
         if regions:
             self.view.fold(regions)
-
-    def prepare_output_line(self, line, matches):
-        pass
