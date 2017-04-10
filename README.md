@@ -3,10 +3,19 @@ Filter Lines
 
 Quickly find all lines matching a string or regular expression.
 
-* Edit > Line > Filter With Regex  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
-* Edit > Line > Filter With String  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
-* Edit > Code Folding > Fold With Regex
-* Edit > Code Folding > Fold With String
+On the Edit > Line menu:
+
+* Include lines with Regex  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
+* Include lines with String  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
+* Exclude lines with Regex
+* Exclude lines with String
+
+On the Edit > Code Folding menu:
+
+* Fold Excluding Regex
+* Fold Excluding String
+* Fold With Regex
+* Fold With String 
 
 On Windows and Linux, press the <kbd>ctrl</kbd> key instead of the <kbd>⌘</kbd> key.
 
@@ -18,7 +27,7 @@ https://github.com/davidpeckham/sublime-filterlines/issues
 Demo
 ----
 
-![Filter Lines Demo](https://dl.dropboxusercontent.com/u/44889921/filter_lines_demo.gif)
+![Filter Lines Demo](https://github.com/davidpeckham/sublime-filterlines/blob/master/filter_lines_demo.gif)
 
 Thanks
 ------
