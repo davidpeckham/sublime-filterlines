@@ -24,6 +24,16 @@ Feedback
 
 https://github.com/davidpeckham/sublime-filterlines/issues
 
+Installation on OSX (Sublime 3)
+----
+1) Close Sublime 3
+2) cd /Users/$USER /Library/Application Support/Sublime Text 3/Packages
+3) git clone https://github.com/davidpeckham/sublime-filterlines.git
+4) Start Sublime 3
+5) Pressing command + shift + p, and typing in Filter Lines, will allow you to begin using this package :)
+6) ???
+7) Have fun
+
 Demo
 ----
 
