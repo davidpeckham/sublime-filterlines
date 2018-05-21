@@ -1,8 +1,8 @@
-#Filter Lines
+# Filter Lines
 
 Quickly find all lines matching a string or regular expression in Sublime Text.
 
-##How to Filter
+## How to Filter
 
 On the Edit > Line menu:
 
@@ -20,15 +20,15 @@ On the Edit > Code Folding menu:
 
 On Windows and Linux, use <kbd>ctrl</kbd> instead of <kbd>⌘</kbd>.
 
-##How to Install
+## How to Install
 
-###Install with Package Control
+### Install with Package Control
 1. Install [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation)
 2. Open the command pallette <kbd>⌘+shift+P</kbd>
 3. Select <kbd>Install Package</kbd>
 3. Select <kbd>Filter Lines</kbd>
 
-###Install with Git
+### Install with Git
 1. Open the Sublime Text package folder (see Sublime Text > Preferences > Browse Packages...)
 2. Clone this repo
 3. Restart Sublime Text
