@@ -10,7 +10,7 @@ To fold your file to lines that contain a string or match a regex:
   Edit > Code Folding > Fold With Regex
   Edit > Code Folding > Fold With String
 
-On Windows and Linux, use the ctrl key instead of the cmd key.
+On Windows and Linux, use ctrl instead of cmd.
 
 
 For feedback, bugs, and source code:
