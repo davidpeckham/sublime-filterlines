@@ -8,10 +8,10 @@
                 "children":
                 [
                     { "caption": "-" },
-                    { "caption": "Include lines with Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
-                    { "caption": "Include lines with String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
-                    { "caption": "Exclude lines with Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
-                    { "caption": "Exclude lines with String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": true } }
+                    { "caption": "Include Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
+                    { "caption": "Include Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
+                    { "caption": "Exclude Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
+                    { "caption": "Exclude Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": true } }
                 ]
             },
             {

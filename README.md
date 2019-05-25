@@ -6,10 +6,10 @@ Quickly find all lines matching a string or regular expression in Sublime Text.
 
 On the Edit > Line menu:
 
-* Include lines with Regex  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
-* Include lines with String  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
-* Exclude lines with Regex
-* Exclude lines with String
+* Include Lines With Regex  <kbd>⌘+K</kbd> <kbd>⌘+R</kbd>
+* Include Lines With String  <kbd>⌘+K</kbd> <kbd>⌘+S</kbd>
+* Exclude Lines With Regex
+* Exclude Lines With String
 
 On the Edit > Code Folding menu:
 
