@@ -8,7 +8,7 @@ settings_path = 'Filter Lines.sublime-settings'
 class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
 
     def run(self, search_type='string', invert_search=False):
-        self._run(search_type, "filter_to_lines", "Filter", invert_search)
+        self._run(search_type, 'filter_to_lines', 'Filter', invert_search)
 
     def _run(self, search_type, filter_command, filter_verb, invert_search):
         self.load_settings()
