@@ -115,3 +115,38 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             return '%5d: %s' % (line_number, self.view.substr(line))
         else:
             return self.view.substr(line)
+
+
+class PromptFoldToLinesCommand(PromptFilterToLinesCommand):
+
+    def run(self, search_type='string', invert_search=False):
+        self._run(search_type, "fold_to_lines", "Fold", invert_search)
+
+
+class FoldToLinesCommand(FilterToLinesCommand):
+
+    def show_filtered_lines(self, edit, lines):
+        source_lines = self.view.lines(sublime.Region(0, self.view.size()))
+        filtered_line_numbers = {
+            self.view.rowcol(line.begin())[0] for line in lines
+        }
+        regions = []
+        region = None
+        for line in source_lines:
+            matched = (
+                self.view.rowcol(
+                    line.begin()
+                )[0] in filtered_line_numbers) ^ self.invert_search
+            if matched:
+                if region:
+                    regions.append(region)
+                    region = None
+            else:
+                if region:
+                    region = region.cover(line)
+                else:
+                    region = sublime.Region(line.begin(), line.end())
+        if region:
+            regions.append(region)
+        if regions:
+            self.view.fold(regions)
