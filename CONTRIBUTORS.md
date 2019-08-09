@@ -12,3 +12,4 @@ Contributors
 - skafian and purplelizard for suggesting source line numbers (Sublime Text 3 only)
 - timothyaaron for fixing a code folding bug and defaulting search to the word at cursor
 - poma for performance improvements, filtering in place, and adding commands for filtering in place and inverse filters
+- uglycoyote, reagle, and FichteFoll for their persistence and insight with issue #53
