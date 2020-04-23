@@ -1,10 +1,6 @@
 [
-    { "caption": "Filter Lines: Include Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
-    { "caption": "Filter Lines: Include Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
-    { "caption": "Filter Lines: Exclude Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
-    { "caption": "Filter Lines: Exclude Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": true } },
-    { "caption": "Filter Lines: Fold Excluding Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": false } },
-    { "caption": "Filter Lines: Fold Excluding String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": false } },
-    { "caption": "Filter Lines: Fold With Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": true } },
-    { "caption": "Filter Lines: Fold With String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": true } }
+    { "caption": "Filter Lines: With String", "command": "filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
+    { "caption": "Filter Lines: Without String", "command": "filter_to_lines", "args": { "search_type": "string", "invert_search": true } },
+    { "caption": "Filter Lines: Matching Regex", "command": "filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
+    { "caption": "Filter Lines: Not Matching Regex", "command": "filter_to_lines", "args": { "search_type": "regex", "invert_search": true } }
 ]

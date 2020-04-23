@@ -4,25 +4,16 @@
         "children":
         [
             {
-                "id": "line",
+                "caption": "Filter",
+                "id": "filter",
                 "children":
                 [
+                    { "caption": "Show Results In New Tab", "command": "filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
                     { "caption": "-" },
-                    { "caption": "Include Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
-                    { "caption": "Include Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
-                    { "caption": "Exclude Lines With Regex", "command": "prompt_filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
-                    { "caption": "Exclude Lines With String", "command": "prompt_filter_to_lines", "args": { "search_type": "string", "invert_search": true } }
-                ]
-            },
-            {
-                "id": "fold",
-                "children":
-                [
-                    { "caption": "-" },
-                    { "caption": "Fold Excluding Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": false } },
-                    { "caption": "Fold Excluding String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": false } },
-                    { "caption": "Fold With Regex", "command": "prompt_fold_to_lines", "args": { "search_type": "regex", "invert_search": true } },
-                    { "caption": "Fold With String", "command": "prompt_fold_to_lines", "args": { "search_type": "string", "invert_search": true } }
+                    { "caption": "Include Lines With Regex", "command": "filter_to_lines", "args": { "search_type": "regex", "invert_search": false } },
+                    { "caption": "Include Lines With String", "command": "filter_to_lines", "args": { "search_type": "string", "invert_search": false } },
+                    { "caption": "Exclude Lines With Regex", "command": "filter_to_lines", "args": { "search_type": "regex", "invert_search": true } },
+                    { "caption": "Exclude Lines With String", "command": "filter_to_lines", "args": { "search_type": "string", "invert_search": true } }
                 ]
             }
         ]
@@ -44,6 +35,17 @@
                         "caption": "Filter Lines",
                         "children":
                         [
+                            {
+                                "command": "open_file",
+                                "args": {"file": "${packages}/Filter Lines/README.md"},
+                                "caption": "README"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": {"file": "${packages}/Filter Lines/LICENSE.md"},
+                                "caption": "LICENSE"
+                            },
+                            { "caption": "-" },
                             {
                                 "command": "open_file",
                                 "args": {"file": "${packages}/Filter Lines/Filter Lines.sublime-settings"},

@@ -1,6 +1,6 @@
 # Filter Lines
 
-Quickly find all lines matching a string or regular expression in Sublime Text.
+Quickly find all lines matching a string or regular expression in Sublime Text 3. 
 
 ## How to Filter
 
@@ -40,3 +40,5 @@ On Windows and Linux, use <kbd>ctrl</kbd> instead of <kbd>⌘</kbd>.
 ## Thanks
 
 Filter Lines is based on a Sublime Text [plugin tutorial by Daniel Beck](http://superuser.com/questions/452189/how-can-i-filter-a-file-for-lines-containing-a-string-in-sublime-text-2). If you want to write a plugin, Daniel's tutorial is a good place to start.
+
+Will Bond's tutorial, [How to Create a Sublime Text 2 Plugin](http://net.tutsplus.com/tutorials/python-tutorials/how-to-create-a-sublime-text-2-plugin/), is also a very good introduction.
