@@ -18,11 +18,11 @@ class PromptFilterToLinesCommand(sublime_plugin.WindowCommand):
         if search_type == 'string':
             prompt = "%s to lines %s: " % (
                 filter_verb,
-                'not containing' if self.invert_search else 'containing')
+                'not containing string' if self.invert_search else 'containing string')
         else:
             prompt = "%s to lines %s: " % (
                 filter_verb,
-                'not matching' if self.invert_search else 'matching')
+                'not matching regex' if self.invert_search else 'matching regex')
         if not self.search_text:
             view = self.window.active_view()
             first = view.sel()[0]  # first region (or point)
