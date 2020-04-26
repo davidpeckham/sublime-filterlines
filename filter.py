@@ -64,7 +64,10 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             self.view.find_all(needle, flags), self.view.line)
         lines = [l for l, _ in lines]
         self.line_numbers = settings.get('line_numbers', False)
+        # exclude title prefix in title name length calculation
+        self.title_length = settings.get('new_tab_title_max_length', 20) - 16
         self.new_tab = settings.get('create_new_tab', True)
+        self.needle = needle
         self.invert_search = invert_search ^ (not self.new_tab)
         self.show_filtered_lines(edit, lines)
 
@@ -92,14 +95,16 @@ class FilterToLinesCommand(sublime_plugin.TextCommand):
             text = '\n'.join(
                 [self.prepare_output_line(l) for l in lines]
             )
-            self.create_new_tab(text)
+            self.create_new_tab(text, self.needle)
         else:
             for line in reversed(lines):
                 self.view.erase(edit, self.view.full_line(line))
 
-    def create_new_tab(self, text):
+    def create_new_tab(self, text, title=''):
         results_view = self.view.window().new_file()
-        results_view.set_name('Filter Results')
+        title = '%s...' % (title[:self.title_length]) if len(
+            title) > self.title_length else title
+        results_view.set_name('Filter Results: %s' % (title))
         results_view.set_scratch(True)
         results_view.settings().set(
             'word_wrap', self.view.settings().get('word_wrap'))
