@@ -14,5 +14,8 @@
 	"line_numbers": false,
 
 	// Create new tab for filter results
-	"create_new_tab": true
+	"create_new_tab": true,
+
+	// max visible length of the new tab title. It includes the prefix appended with the search term.
+	"new_tab_title_max_length" : 25
 }
